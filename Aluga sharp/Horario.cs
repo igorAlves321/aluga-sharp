@@ -8,5 +8,10 @@ namespace Aluga_sharp
 {
     internal class Horario
     {
+        DateTime _inicio;
+        DateTime _fim;
+
+        
     }
 }
+
