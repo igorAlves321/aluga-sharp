@@ -16,3 +16,5 @@ Ugo Rocha Ventura.
 
 
 Jose Flai Oliverira de Jesus 
+
+Paola Jane Cardoso Freire
