@@ -16,5 +16,6 @@ namespace AgendaSalas.Context
         public DbSet<Endereco> Endereco { get; set; }
         public DbSet<Equipamento> Equipamento { get; set; }
         public DbSet<Servicos> Servicos { get; set; }
+        public DbSet<Obgetos> Obgetos { get; set; }
     }
 }
