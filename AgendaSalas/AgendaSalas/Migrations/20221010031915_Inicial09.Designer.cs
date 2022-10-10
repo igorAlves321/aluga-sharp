@@ -4,6 +4,7 @@ using AgendaSalas.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgendaSalas.Migrations
 {
     [DbContext(typeof(APIDbContext))]
-    partial class APIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221010031915_Inicial09")]
+    partial class Inicial09
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,12 +66,7 @@ namespace AgendaSalas.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DisponibilidadeSalaId"), 1L, 1);
 
-                    b.Property<int?>("ReservaId")
-                        .HasColumnType("int");
-
                     b.HasKey("DisponibilidadeSalaId");
-
-                    b.HasIndex("ReservaId");
 
                     b.ToTable("DisponibilidadeSala");
                 });
@@ -139,9 +136,6 @@ namespace AgendaSalas.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ReservaId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Voltagem")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -151,8 +145,6 @@ namespace AgendaSalas.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("EquipamentosId");
-
-                    b.HasIndex("ReservaId");
 
                     b.ToTable("Equipamento");
                 });
@@ -198,12 +190,7 @@ namespace AgendaSalas.Migrations
                         .HasMaxLength(240)
                         .HasColumnType("nvarchar(240)");
 
-                    b.Property<int?>("ReservaId")
-                        .HasColumnType("int");
-
                     b.HasKey("ObgetosID");
-
-                    b.HasIndex("ReservaId");
 
                     b.ToTable("Obgetos");
                 });
@@ -234,22 +221,6 @@ namespace AgendaSalas.Migrations
                     b.HasIndex("DisponibilidadeSalaId");
 
                     b.ToTable("Periodo");
-                });
-
-            modelBuilder.Entity("AgendaSalas.Models.Reserva", b =>
-                {
-                    b.Property<int>("ReservaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReservaId"), 1L, 1);
-
-                    b.Property<bool?>("FazerContratacao")
-                        .HasColumnType("bit");
-
-                    b.HasKey("ReservaId");
-
-                    b.ToTable("Reserva");
                 });
 
             modelBuilder.Entity("AgendaSalas.Models.Sala", b =>
@@ -323,12 +294,7 @@ namespace AgendaSalas.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ReservaId")
-                        .HasColumnType("int");
-
                     b.HasKey("ServicoID");
-
-                    b.HasIndex("ReservaId");
 
                     b.ToTable("Servicos");
                 });
@@ -367,13 +333,6 @@ namespace AgendaSalas.Migrations
                     b.ToTable("Usuario");
                 });
 
-            modelBuilder.Entity("AgendaSalas.Models.DisponibilidadeSala", b =>
-                {
-                    b.HasOne("AgendaSalas.Models.Reserva", null)
-                        .WithMany("DisponibilidadeSalas")
-                        .HasForeignKey("ReservaId");
-                });
-
             modelBuilder.Entity("AgendaSalas.Models.Endereco", b =>
                 {
                     b.HasOne("AgendaSalas.Models.Sala", null)
@@ -381,25 +340,11 @@ namespace AgendaSalas.Migrations
                         .HasForeignKey("SalaId");
                 });
 
-            modelBuilder.Entity("AgendaSalas.Models.Equipamento", b =>
-                {
-                    b.HasOne("AgendaSalas.Models.Reserva", null)
-                        .WithMany("Equipamentos")
-                        .HasForeignKey("ReservaId");
-                });
-
             modelBuilder.Entity("AgendaSalas.Models.Horario", b =>
                 {
                     b.HasOne("AgendaSalas.Models.Periodo", null)
                         .WithMany("Horarios")
                         .HasForeignKey("PeriodoId");
-                });
-
-            modelBuilder.Entity("AgendaSalas.Models.Obgetos", b =>
-                {
-                    b.HasOne("AgendaSalas.Models.Reserva", null)
-                        .WithMany("Objetos")
-                        .HasForeignKey("ReservaId");
                 });
 
             modelBuilder.Entity("AgendaSalas.Models.Periodo", b =>
@@ -416,13 +361,6 @@ namespace AgendaSalas.Migrations
                         .HasForeignKey("DisponibilidadeSalaId");
                 });
 
-            modelBuilder.Entity("AgendaSalas.Models.Servicos", b =>
-                {
-                    b.HasOne("AgendaSalas.Models.Reserva", null)
-                        .WithMany("Servicos")
-                        .HasForeignKey("ReservaId");
-                });
-
             modelBuilder.Entity("AgendaSalas.Models.DisponibilidadeSala", b =>
                 {
                     b.Navigation("Periodo");
@@ -433,17 +371,6 @@ namespace AgendaSalas.Migrations
             modelBuilder.Entity("AgendaSalas.Models.Periodo", b =>
                 {
                     b.Navigation("Horarios");
-                });
-
-            modelBuilder.Entity("AgendaSalas.Models.Reserva", b =>
-                {
-                    b.Navigation("DisponibilidadeSalas");
-
-                    b.Navigation("Equipamentos");
-
-                    b.Navigation("Objetos");
-
-                    b.Navigation("Servicos");
                 });
 
             modelBuilder.Entity("AgendaSalas.Models.Sala", b =>
